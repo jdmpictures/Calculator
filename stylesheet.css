@@ -1,0 +1,26 @@
+body {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center
+    
+}
+
+
+
+#calc-base { 
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 20%;
+    height: 30%;
+    border: 2px solid black ;
+    padding: 5px;
+}
+
+
+#input-screen {
+    width: 100%;
+}
+
+
