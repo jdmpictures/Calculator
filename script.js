@@ -1,9 +1,10 @@
 //Initalising variables 
 let buttons = [...document.getElementsByTagName('span')];
 let inputScreen = document.getElementById('input-screen');
-let operator =  false;
-let currentOpertor;
+let newNum =  true;
+let currentOpertor = '';
 let secondVal = 0; 
+let result = 0;
 
 
 
@@ -31,18 +32,10 @@ buttons.forEach(element => {
         if (element.innerHTML === 'c'){
             cancel();
         }
-        if (element.innerHTML === '÷'){
-            divide(element);
+        if (element.innerHTML === '÷' || element.innerHTML === 'x' || element.innerHTML === '-' || element.innerHTML === '-' || element.innerHTML === '+' ){
+            operation(element);
         }
-        if (element.innerHTML === 'x'){
-            mutiply(element);
-        }
-        if (element.innerHTML === '-'){
-            minus(element);
-        }
-        if (element.innerHTML === '+'){
-            sum(element);
-        }
+
         else {
             inputNums(element)
         }
@@ -53,56 +46,79 @@ buttons.forEach(element => {
 });
 
 
+
+
+
+
 const operation = (element) => {
-    if (inputScreen.innerHTML === '0' && secondVal === '0') {
+    let firstVal = inputScreen.innerHTML;
+
+    if (firstVal === '0' && secondVal === 0){
         return;
     }
-    if(currentOpertor !== element.innerHTML){
-        switch(currentOpertor) { 
+    if (firstVal !== '0' && secondVal === 0) {
+                secondVal = firstVal;
+                currentOpertor = element.innerHTML;    
+
+    } else {
+        if (firstVal == result){
+            secondVal = result; 
+            firstVal = 0;
+        }
+        switch(currentOpertor) {
             case '÷':
-                console.log('works')
+                firstVal = secondVal / firstVal;
+                result = secondVal / firstVal;
+                inputScreen.innerHTML = result;
                 break;
             case 'x':
-                console.log('works')
+                firstVal = secondVal * firstVal;
+                result = secondVal * firstVal;
+                inputScreen.innerHTML = result;
                 break;
             case '-':
-                console.log('works')
+                firstVal = secondVal - firstVal;
+                result = secondVal - firstVal;
+                inputScreen.innerHTML = result;
                 break;
             case '+':
-                console.log('works')
+                firstVal = Number(secondVal) + Number(firstVal);
+                result = Number(secondVal) + Number(firstVal);
+                inputScreen.innerHTML = result;
                 break;
         }
     }
-
 }
+
+
+
+
 
 
 //Calculator functions 
 
 
-const inputNums = (element)  => {
-
-    if (element.className === 'grey' || element.className === 'operator' || (element.innerHTML === '.' && inputScreen.innerHTML.includes('.'))){
+const inputNums = (e)  => {
+    let input = e.innerHTML
+    if (e.className === 'grey' || e.className === 'operator' || (input === '.' && inputScreen.innerHTML.includes('.'))){
         return;
-    }
-    else if (inputScreen.innerHTML === '0' || operator === true ){
-        operator = false;
-        inputScreen.innerHTML = '';
-        inputScreen.innerHTML += element.innerHTML; 
-     } 
-    else {
-        inputScreen.innerHTML += element.innerHTML;
+    } else if (!inputScreen.innerHTML){
+        console.log('works')
     }
 
 }
 
 const clear = () => {
-    inputScreen.textContent = '0';
-    secondVal = '0'
+    inputScreen.innerHTML = '0';
+    secondVal = 0;
+    result = 0;
+    currentOpertor = '';
+    operator = false;
 }
 
 
 const cancel = () => {
+    if(inputScreen)inputScreen.innerHTML.slice(0, -1)
 
 }
 
@@ -121,74 +137,6 @@ const invert = () => {
 const percent = () => {
     inputScreen.textContent /= 100;
 }
-
-const divide = (element) => {
-    if (inputScreen.innerHTML === '0' && secondVal === '0') {
-        alert('MORON')
-        return;
-    } else if (inputScreen.innerHTML !== '0' && secondVal === '0') {
-        operator = true;
-        secondVal = inputScreen.innerHTML;
-        // operatorValue += element.innerHTML;
-
-    } else {
-        inputScreen.innerHTML = secondVal / inputScreen.innerHTML;
-        operator = true;7
-    }        
-    }
-
-
-
-
-
-
-
-const mutiply = (element) => {
-    if (inputScreen.innerHTML === '0' && secondVal === '0') {
-        return;
-    } else if (inputScreen.innerHTML !== '0' && secondVal === '0') {
-        operator = true;
-        secondVal = inputScreen.innerHTML;
-        operatorValue += element.innerHTML;
-
-    } else {
-        inputScreen.innerHTML = secondVal * inputScreen.innerHTML;
-        operator = true;
-    }
-
-}
-
-const minus = (element) => {
-    if (inputScreen.innerHTML === '0' && secondVal === '0') {
-        return;
-    } else if (inputScreen.innerHTML !== '0' && secondVal === '0') {
-        operator = true;
-        secondVal = inputScreen.innerHTML;
-        operatorValue += element.innerHTML;
-
-    } else {
-        inputScreen.innerHTML = secondVal - inputScreen.innerHTML;
-        operator = true;
-    }
-
-}
-
-const sum = (element) => {
-    if (inputScreen.innerHTML === '0' && secondVal === '0') {
-        return;
-    } else if (inputScreen.innerHTML !== '0' && secondVal === '0') {
-        operator = true;
-        secondVal = inputScreen.innerHTML;
-        operatorValue += element.innerHTML;
-
-    } else {
-        inputScreen.innerHTML += secondVal;
-        operator = true;
-    }
-
-}
-
-
 
 
 
