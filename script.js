@@ -46,46 +46,45 @@ buttons.forEach(element => {
 });
 
 
+ function operation (element) {
 
-
-
-
-const operation = (element) => {
-    let firstVal = inputScreen.innerHTML;
-
-    if (firstVal === '0' && secondVal === 0){
+    if (inputScreen.innerHTML == '0' && secondVal == 0){
         return;
     }
-    if (firstVal !== '0' && secondVal === 0) {
-                secondVal = firstVal;
-                currentOpertor = element.innerHTML;    
+    if (inputScreen.innerHTML !== '0' && secondVal == 0 && element.innerHTML !== '=' )  {
+                secondVal = inputScreen.innerHTML;
+                currentOpertor = element.innerHTML;
+                inputScreen.innerHTML = 0;
+                newNum = true;  
 
     } else {
-        if (firstVal == result){
-            secondVal = result; 
-            firstVal = 0;
+        if(secondVal == result){
+            currentOpertor = element.innerHTML;
         }
+        newNum = true;
         switch(currentOpertor) {
             case '÷':
-                firstVal = secondVal / firstVal;
-                result = secondVal / firstVal;
-                inputScreen.innerHTML = result;
+                inputScreen.innerHTML = secondVal / inputScreen.innerHTML;
+                result = inputScreen.innerHTML;
+                currentOpertor = element.innerHTML;
                 break;
             case 'x':
-                firstVal = secondVal * firstVal;
-                result = secondVal * firstVal;
-                inputScreen.innerHTML = result;
+                inputScreen.innerHTML = secondVal * inputScreen.innerHTML;
+                result = inputScreen.innerHTML;
+                currentOpertor = element.innerHTML;
                 break;
             case '-':
-                firstVal = secondVal - firstVal;
-                result = secondVal - firstVal;
-                inputScreen.innerHTML = result;
+                inputScreen.innerHTML = secondVal - inputScreen.innerHTML;
+                result = inputScreen.innerHTML;
+                currentOpertor = element.innerHTML;
                 break;
             case '+':
-                firstVal = Number(secondVal) + Number(firstVal);
-                result = Number(secondVal) + Number(firstVal);
-                inputScreen.innerHTML = result;
+                inputScreen.innerHTML = Number(secondVal) + Number(inputScreen.innerHTML);
+                result = inputScreen.innerHTML;
+                currentOpertor = element.innerHTML;
                 break;
+            case '=':
+                operation(currentOpertor);
         }
     }
 }
@@ -98,12 +97,20 @@ const operation = (element) => {
 //Calculator functions 
 
 
-const inputNums = (e)  => {
-    let input = e.innerHTML
-    if (e.className === 'grey' || e.className === 'operator' || (input === '.' && inputScreen.innerHTML.includes('.'))){
+const inputNums = (e)  => {    
+    console.log(e)
+    if (e.className === 'grey' || e.className === 'operator' || (e.innerHTML === '.' && inputScreen.innerHTML.includes('.'))){
         return;
-    } else if (!inputScreen.innerHTML){
-        console.log('works')
+    } if (inputScreen.innerHTML == 0){
+        inputScreen.innerHTML = ''; 
+        inputScreen.innerHTML += e.innerHTML;
+        newNum = false;     
+    } else if (inputScreen.innerHTML == result){
+        secondVal = result; 
+        inputScreen.innerHTML = e.innerHTML;
+    }
+    else {
+        inputScreen.innerHTML += e.innerHTML;
     }
 
 }
