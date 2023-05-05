@@ -42,17 +42,22 @@
 }
 
 
-#input-screen {
+#input-screen , #second-value {
     display: flex;
     justify-content: right;
     align-items: end;
     text-align: end;
     margin: 0;
-    font-size: 4rem;
+    font-size: 5rem;
     width: 100%;
     background-color: #000;
     color: white;
 }
+
+#second-value {
+    font-size: 2rem;
+}
+
 
 #input-screen > p {
     margin: 0;
@@ -109,3 +114,8 @@
     padding-left: 20px;
 }
 
+#active{
+    background-color: white;
+    color: #ff9500;
+
+}

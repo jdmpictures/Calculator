@@ -1,144 +1,130 @@
 //Initalising variables 
-let buttons = [...document.getElementsByTagName('span')];
-let inputScreen = document.getElementById('input-screen');
+const buttons = [...document.getElementsByTagName('span')];
+const inputScreen = document.getElementById('input-screen');
+const deleteButton = document.getElementById('clear');
+const secondValScreen = document.getElementById('second-value')
 let newNum =  true;
 let currentOpertor = '';
 let secondVal = 0; 
-let result = 0;
-
-
+let result;
 
 //Sets the time in the top left of the screen
 const refreshTime = () => {
-var time = new Date().toLocaleTimeString()
+let time = new Date().toLocaleTimeString()
 document.getElementById("time").textContent = time;
 }
 setInterval(refreshTime, 1000);
 
-
 //Add the click events to the buttons 
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const buttonText = button.textContent;
+      switch (buttonText) {
+        case "AC":
+          clear();
+          break;
+        case "+/-":
+          invert();
+          break;
+        case "%":
+          percent();
+          break;
+        case "←":
+          cancel();
+          break;
+        case "÷":
+        case "x":
+        case "-":
+        case "+":
+        case "=":
+          operation(button);
+          break;
+        default:
+          inputNums(button);
+          break;
+      }
+    });
+  });
 
-buttons.forEach(element => { 
-    element.addEventListener('click', () => {
-        if (element.innerHTML === 'AC'){
-            clear();
-        }
-        if (element.innerHTML === '+/-'){
-            invert();
-        }
-        if (element.innerHTML === '%'){
-            percent();
-        }
-        if (element.innerHTML === 'c'){
-            cancel();
-        }
-        if (element.innerHTML === '÷' || element.innerHTML === 'x' || element.innerHTML === '-' || element.innerHTML === '-' || element.innerHTML === '+' ){
-            operation(element);
-        }
-
-        else {
-            inputNums(element)
-        }
-        
-    })
-    
-    
-});
-
-
- function operation (element) {
-
-    if (inputScreen.innerHTML == '0' && secondVal == 0){
-        return;
+const calculate = (element) => {
+    console.log(currentOpertor, inputScreen.textContent, secondVal)
+    newNum = true;
+    switch(element) {
+        case '÷':
+            result = secondVal / inputScreen.textContent
+            break;
+        case 'x':
+            result = secondVal * inputScreen.textContent;
+            break;
+        case '-':
+            result = secondVal - inputScreen.textContent;
+            break;
+        case '+':
+            result = Number(secondVal) + Number(inputScreen.textContent);
+            break;
+        case '=':
+            console
+            calculate(currentOpertor);
+            break;
     }
-    if (inputScreen.innerHTML !== '0' && secondVal == 0 && element.innerHTML !== '=' )  {
-                secondVal = inputScreen.innerHTML;
-                currentOpertor = element.innerHTML;
-                inputScreen.innerHTML = 0;
-                newNum = true;  
+    inputScreen.textContent = result;
+    secondVal = result;
 
-    } else {
-        if(secondVal == result){
-            currentOpertor = element.innerHTML;
-        }
-        newNum = true;
-        switch(currentOpertor) {
-            case '÷':
-                inputScreen.innerHTML = secondVal / inputScreen.innerHTML;
-                result = inputScreen.innerHTML;
-                currentOpertor = element.innerHTML;
-                break;
-            case 'x':
-                inputScreen.innerHTML = secondVal * inputScreen.innerHTML;
-                result = inputScreen.innerHTML;
-                currentOpertor = element.innerHTML;
-                break;
-            case '-':
-                inputScreen.innerHTML = secondVal - inputScreen.innerHTML;
-                result = inputScreen.innerHTML;
-                currentOpertor = element.innerHTML;
-                break;
-            case '+':
-                inputScreen.innerHTML = Number(secondVal) + Number(inputScreen.innerHTML);
-                result = inputScreen.innerHTML;
-                currentOpertor = element.innerHTML;
-                break;
-            case '=':
-                operation(currentOpertor);
-        }
-    }
 }
 
-
-
-
-
+const operation =  (element) => {
+    if (inputScreen.textContent == '0' && secondVal == 0){
+        return;
+    }
+    if (inputScreen.textContent !== '0' && secondVal == 0)  {
+                secondVal = inputScreen.textContent;
+                currentOpertor = element.textContent;
+                newNum = true;  
+    } else  {
+        newNum = true;
+        if (element.textContent !== currentOpertor){
+            calculate(currentOpertor);
+            currentOpertor = element.textContent; 
+        } else 
+        calculate(element.textContent);
+    }
+    secondValScreen.textContent = secondVal + currentOpertor;
+}
 
 //Calculator functions 
 
 
-const inputNums = (e)  => {    
-    console.log(e)
-    if (e.className === 'grey' || e.className === 'operator' || (e.innerHTML === '.' && inputScreen.innerHTML.includes('.'))){
+const inputNums = (e)  => {
+    if (e.className === 'grey' || e.className === 'operator' || (e.textContent === '.' && inputScreen.textContent.includes('.'))){
         return;
-    } if (inputScreen.innerHTML == 0){
-        inputScreen.innerHTML = ''; 
-        inputScreen.innerHTML += e.innerHTML;
-        newNum = false;     
-    } else if (inputScreen.innerHTML == result){
-        secondVal = result; 
-        inputScreen.innerHTML = e.innerHTML;
+    } if (inputScreen.textContent == 0 || newNum === true){
+        inputScreen.textContent = ''; 
+        inputScreen.textContent += e.textContent;
+        deleteButton.innerHTML = '&#8592;'
+        newNum = false;
+    } else {
+        inputScreen.textContent += e.textContent;
+        deleteButton.innerHTML = '&#8592;'
     }
-    else {
-        inputScreen.innerHTML += e.innerHTML;
-    }
-
 }
 
 const clear = () => {
-    inputScreen.innerHTML = '0';
+    inputScreen.textContent = '0';
     secondVal = 0;
     result = 0;
     currentOpertor = '';
-    operator = false;
+    newNum = true;
+    secondValScreen.textContent = ''
 }
-
 
 const cancel = () => {
-    if(inputScreen)inputScreen.innerHTML.slice(0, -1)
-
-}
-
-
-const invert = () => {
-    let input = inputScreen.textContent;
-    if (input > 0 ) {
-        inputScreen.textContent = "-" + input;   
-    } 
-    else if (input.includes('-')){
-        inputScreen.textContent = input.substring(1)
-    }
-
+    let currentValue = inputScreen.textContent
+    if(currentValue.length < 1) { 
+        inputScreen.textContent = currentValue.slice(0, -1);
+    } else {
+        inputScreen.textContent = 0;
+        deleteButton.textContent = 'AC'
+    }  
 }
 
 const percent = () => {
@@ -146,9 +132,22 @@ const percent = () => {
 }
 
 
+const invert = () => {
+    let input = inputScreen.textContent;
+    if (input > 0 ) {
+        inputScreen.textContent = "-" + input;   
+    } else if (input.includes('-')){
+        inputScreen.textContent = input.substring(1)
+    }
 
+}
 
-
-const equals = () => {
-
+const setButtonColour = (button) => {
+    const activeOperator = [...document.getElementsByClassName('operator')];
+    activeOperator.forEach(e => {
+        if(e[i].textContent === button.textContent) {
+            e[i].sty
+        }
+        
+    });
 }
