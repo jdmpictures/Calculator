@@ -1,0 +1,13 @@
+0000000000000000000000000000000000000000 19ef5d9025c6fb713b7d20d467ce0702b010f2c3 jdmpictures <74938827+jdmpictures@users.noreply.github.com> 1677546471 +0000	clone: from github.com:jdmpictures/Calculator.git
+19ef5d9025c6fb713b7d20d467ce0702b010f2c3 ef478a6d61f6ac622d06837db13f2a39d43f253f jdmpictures <74938827+jdmpictures@users.noreply.github.com> 1677546535 +0000	commit: added inital files
+ef478a6d61f6ac622d06837db13f2a39d43f253f 4508300841c8700e387aea075b37466d4e785810 jdmpictures <74938827+jdmpictures@users.noreply.github.com> 1677719380 +0000	commit: Added some basic HTML for base of calc
+4508300841c8700e387aea075b37466d4e785810 c8cac8bab3e34f68e07309c72c7e6c30cf58b133 jdmpictures <74938827+jdmpictures@users.noreply.github.com> 1677773061 +0000	commit: Added some small CSS changes
+c8cac8bab3e34f68e07309c72c7e6c30cf58b133 3c865d10537c45c19b82f4e4d641ccc96ef69877 jdmpictures <74938827+jdmpictures@users.noreply.github.com> 1678743106 +0000	commit: Created full calculator base with HTML and CSS. Added JS functionality for live time
+3c865d10537c45c19b82f4e4d641ccc96ef69877 516886baedf2cb8b5840cdead3867a932b9cb390 jdmpictures <74938827+jdmpictures@users.noreply.github.com> 1680125464 +0100	commit: added click events and clear funtion
+516886baedf2cb8b5840cdead3867a932b9cb390 72bc38b49a929b5192292f9171cbedc8cc0f0cf4 jdmpictures <74938827+jdmpictures@users.noreply.github.com> 1681764894 +0100	commit: Function added to populate input screen
+72bc38b49a929b5192292f9171cbedc8cc0f0cf4 d86e846c8af1d680ebc183d190ae3b0d8e9b93ab jdmpictures <74938827+jdmpictures@users.noreply.github.com> 1681903763 +0100	commit: Changed number inputs func to ES6 and started divide function
+d86e846c8af1d680ebc183d190ae3b0d8e9b93ab 6594ba11cdb2a07f15f79f36705eac0600632494 jdmpictures <74938827+jdmpictures@users.noreply.github.com> 1682026738 +0100	commit: Small JS changes
+6594ba11cdb2a07f15f79f36705eac0600632494 b226231387d88f66e90c5550d3530ac71ddb21dc jdmpictures <74938827+jdmpictures@users.noreply.github.com> 1682690635 +0100	commit: removed old functions, simplyfied some further functions
+b226231387d88f66e90c5550d3530ac71ddb21dc 5c71e82d8f1ea123a99b2c317880a867d2720126 jdmpictures <74938827+jdmpictures@users.noreply.github.com> 1683152575 +0100	commit: Changes to the operation function
+5c71e82d8f1ea123a99b2c317880a867d2720126 37fe1fda6010d33309d9c1f28a472343cfb4e8bc jdmpictures <74938827+jdmpictures@users.noreply.github.com> 1683250300 +0100	commit: Finished calculate function and added second dislay input
+37fe1fda6010d33309d9c1f28a472343cfb4e8bc 8f6e7269de7628f4d8c621ec7e0125075b751b3c jdmpictures <74938827+jdmpictures@users.noreply.github.com> 1684150549 +0100	commit: hightlight button and operator functions added
