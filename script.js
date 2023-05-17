@@ -71,8 +71,8 @@ buttons.forEach((button) => {
   const highlightOperator = () => {
     operators.forEach((btn) => {
       if (btn.textContent === currentOpertor && btn.classList.contains('operator')) {
-        btn.style.backgroundColor = 'red';
-        btn.style.color = 'white';
+        btn.style.backgroundColor = 'white';
+        btn.style.color = '#FF9500';
       } else {
         btn.style.backgroundColor = ''; // Reset to default background color
         btn.style.color = ''; // Reset to default text color
